@@ -1,17 +1,20 @@
-import React from 'react'
-import Link from 'next/link'
+import React from 'react';
+import Link from 'next/link';
+import styles from '@styles/Navbar.module.scss';
+import { Icon, Divider } from 'semantic-ui-react';
 
 export default function Navbar() {
   return (
     <nav>
-      <menu>
+      <menu className={styles.Navbar}>
         <Link href="/">
-          <a>Home</a>
+          <a>Avo Store</a>
         </Link>
-        <Link href="/about">
-          <a>About</a>
+        <Link href="/cart">
+            <a><Icon name='shopping cart' color='blue'/>Canasta 0</a>
         </Link>
       </menu>
+      <Divider />
     </nav>
   )
 }

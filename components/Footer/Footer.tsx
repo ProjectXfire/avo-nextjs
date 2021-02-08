@@ -1,10 +1,14 @@
-import React from 'react'
+import React from 'react';
+import { Divider } from 'semantic-ui-react';
 
 const Footer = () => {
   return (
-    <div>
-      Footer
-    </div>
+    <>
+      < Divider/>
+      <footer>
+        Footer
+      </footer>
+    </>
   )
 }
 
