@@ -1,15 +1,24 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
-import db from '../database/db';
 import styles from '@styles/HomePage.module.scss';
+import { SET_PRODUCTS } from '../Redux/types/typeProducts';
 import Products from '@components/Products/Products';
 
 const HomePage = () => {
   const products = useSelector(state => state.products);
-  const database = new db();
-  console.log(products);
+  const dispatch = useDispatch();
+
+  const fetch = async () => {
+    const { data } = await axios.get('/api/avo');
+    dispatch({
+      type: SET_PRODUCTS,
+      payload: data
+    });
+  }
+
   useEffect(() => {
+    fetch();
   }, [])
   return (
     <section className={styles.HomePage}>
