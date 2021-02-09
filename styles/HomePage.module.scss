@@ -6,4 +6,11 @@
     font-size: 40px;
     font-family: 'Comic Neue', cursive;
   }
+  &__products {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    justify-items: center;
+    gap: 20px;
+    margin: 0 10%;
+  }
 }

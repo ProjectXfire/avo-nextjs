@@ -1,0 +1,16 @@
+.ProductDetail {
+  display: flex;
+  align-items: center;
+  margin: 0 10%;
+
+  &__sku {
+    border-radius: 2px;
+    padding: 5px 10px;
+    background-color: rgb(219, 219, 219);
+    font-weight: bold;
+  }
+}
+
+.ProductAttributes {
+  margin: 0 10%;
+}
