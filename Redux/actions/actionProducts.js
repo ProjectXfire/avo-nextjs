@@ -1,7 +1,8 @@
 import {
   SET_PRODUCTS,
   SET_PRODUCT_IN_CART,
-  ADD_TO_CART_OR_UPDATE_QTTY
+  ADD_TO_CART_OR_UPDATE_QTTY,
+  REMOVE_FROM_CART
 } from '../types/typeProducts';
 
 const setProducts = (payload) => ({
@@ -19,8 +20,14 @@ const addTocartOrUpdateQtty = (payload) => ({
   payload,
 });
 
+const removeItemFromCart = (payload) => ({
+  type: REMOVE_FROM_CART,
+  payload,
+});
+
 export {
   setProducts,
   addToCart,
-  addTocartOrUpdateQtty
+  addTocartOrUpdateQtty,
+  removeItemFromCart
 }

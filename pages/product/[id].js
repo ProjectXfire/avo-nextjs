@@ -15,9 +15,6 @@ const ProductPage = () => {
   const product = products.find(product => product.id === id );
   const productCart = cart.find(product => product.id === id );
 
-  console.log(products);
-  console.log(cart);
-
   const handleQttyChange = (e) => {
     setQtty(e.target.value);
   }

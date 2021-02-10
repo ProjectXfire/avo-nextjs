@@ -1,7 +1,7 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Link from 'next/link';
-import { Card, Icon, Image, Button } from 'semantic-ui-react';
+import { Card, Icon, Image, Button, Message } from 'semantic-ui-react';
 import styles from '@styles/Product.module.scss';
 import { addToCart } from '../../Redux/actions/actionProducts';
 
@@ -9,17 +9,34 @@ const Products = (props) => {
 
   const { product } = props;
   const dispatch = useDispatch();
+  const [message, setMessage] = useState(false);
+  const cart = useSelector(state => state.cart);
+  const alreadyAdded = cart.find(item => item.id === product.id);
 
   const handleAddToCart = (product) => {
-    const addProductQtty = {
-      ...product,
-      qtty: 1
+    if (!alreadyAdded) {
+      setMessage(true)
+      const addProductQtty = {
+        ...product,
+        qtty: 1,
+      };
+      dispatch(addToCart(addProductQtty))
+      setTimeout(() => setMessage(false), 1000);
     }
-    dispatch(addToCart(addProductQtty))
   };
 
   return (
     <Card className={styles.Product}>
+      {
+        message
+          && (
+            <Message
+              className={styles.Product__message}
+              success
+              header='Product successful register'
+            />
+          )
+      }
       <Image src={product.image} wrapped ui={false} />
       <Card.Content>
         <Card.Header>{product.name}</Card.Header>

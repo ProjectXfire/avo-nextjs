@@ -1,6 +1,27 @@
 .Product {
   margin: 0 !important;
+  position: relative;
   i {
     margin: 0 !important;
+  }
+  &__message {
+    position: absolute !important;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
+    animation: message 1s backwards ease-out;
+  }
+}
+
+@keyframes message {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }

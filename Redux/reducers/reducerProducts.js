@@ -1,7 +1,8 @@
 import {
   SET_PRODUCTS,
   SET_PRODUCT_IN_CART,
-  ADD_TO_CART_OR_UPDATE_QTTY
+  ADD_TO_CART_OR_UPDATE_QTTY,
+  REMOVE_FROM_CART
 } from '../types/typeProducts';
 
 const initialState = {
@@ -16,18 +17,11 @@ const reducerProducts = (state = initialState, action) => {
         ...state,
         products: action.payload
       }
-    case SET_PRODUCT_IN_CART: {
-      const alreadyAdded = state.cart.find(product => product.id === action.payload.id);
-      if (!alreadyAdded) {
-        return {
-          ...state,
-          cart: [...state.cart, action.payload]
-        }
-      } else {
-        alert('Product already added');
-        return state;
-      };
-    }
+    case SET_PRODUCT_IN_CART:
+      return {
+        ...state,
+        cart: [...state.cart, action.payload]
+      }
     case ADD_TO_CART_OR_UPDATE_QTTY: {
       const alreadyAdded = state.cart.find(product => product.id === action.payload.id);
       if (!alreadyAdded) {
@@ -44,7 +38,13 @@ const reducerProducts = (state = initialState, action) => {
         }
       }
     }
-
+    case REMOVE_FROM_CART: {
+      const removeItem = state.cart.filter(item => item.id !== action.payload)
+      return {
+        ...state,
+        cart: removeItem
+      }
+    }
     default:
       return state;
   };
