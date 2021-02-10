@@ -30,7 +30,7 @@ const ProductPage = () => {
     dispatch(addTocartOrUpdateQtty(addProductQtty));
     setTimeout(() => {
       setLoading(false);
-    }, 1000);
+    }, 250);
   };
 
   useEffect(() => {

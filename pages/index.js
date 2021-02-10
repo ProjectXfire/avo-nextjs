@@ -6,20 +6,21 @@ import { Loader } from 'semantic-ui-react';
 import Products from '@components/Products/Products';
 import { setProducts } from '../Redux/actions/actionProducts';
 
-const HomePage = () => {
-  const products = useSelector(state => state.products);
-  const dispatch = useDispatch();
-  const showProducts = products.length > 0;
-
-  const fetch = async () => {
-    const { data: { data} } = await axios.get('/api/avo');
-    dispatch(setProducts(data));
+export const getServerSideProps = async () => {
+  const {data: {data}} = await axios.get('https://avo-nextjs.vercel.app/api/avo');
+  return {
+    props: {
+      getProducts: data
+    }
   };
+};
 
+const HomePage = ({ getProducts }) => {
+  const dispatch = useDispatch();
+  const products = useSelector(state => state.products);
+  const showProducts = products.length > 0;
   useEffect(() => {
-    axios.get('/api/avo')
-      .then(response => dispatch(setProducts(response.data.data)))
-      .catch(error => error);
+    dispatch(setProducts(getProducts));
   }, [])
   return (
     <section className={styles.HomePage}>
