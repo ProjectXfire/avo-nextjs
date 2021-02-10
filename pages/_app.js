@@ -4,6 +4,10 @@ import { useStore } from '../Redux/store';
 import Layout from '@components/Layout/Layout';
 import 'semantic-ui-css/semantic.min.css';
 
+export function reportWebVitals(metric) {
+  console.log(metric);
+}
+
 export default function MyApp ({ Component, pageProps }) {
   const store = useStore(pageProps.initialReduxState);
   return (
