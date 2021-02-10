@@ -17,7 +17,9 @@ const HomePage = () => {
   };
 
   useEffect(() => {
-    fetch();
+    axios.get('/api/avo')
+      .then(response => dispatch(setProducts(response.data.data)))
+      .catch(error => error);
   }, [])
   return (
     <section className={styles.HomePage}>
