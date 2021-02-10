@@ -48,7 +48,7 @@ const Products = (props) => {
         </Button>
         <Link href={`/product/${product.id}`}>
           <a>
-            <Button inverted color='blue'>
+            <Button type='button' inverted color='blue'>
               <Icon name='info circle'/>
             </Button>
           </a>
