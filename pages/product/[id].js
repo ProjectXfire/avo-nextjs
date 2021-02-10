@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router'
 import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
 import { Button, Input, Table } from 'semantic-ui-react';
 import styles from '@styles/ProductDetail.module.scss';
 import { addTocartOrUpdateQtty } from '../../Redux/actions/actionProducts';
@@ -37,8 +38,9 @@ const ProductPage = () => {
     if (productCart) {
       setQtty(productCart.qtty)
     }
-    const product = products.find(product => product.id === id);
-    setProduct(product);
+    axios.get(`/api/avo/${id}`)
+      .then(response => setProduct(response.data))
+      .catch(error => error);
   }, []);
 
   return (
