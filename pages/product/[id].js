@@ -19,7 +19,7 @@ export const getStaticPaths = async () => {
 
   return {
     paths,
-    fallback: false // Incremental static generation, significa que cualquier path que no este
+    fallback: true // Incremental static generation, significa que cualquier path que no este
   }                 // en la lista de patchs, mandara un error 404.
 }
 
