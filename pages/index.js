@@ -6,7 +6,7 @@ import { Loader } from 'semantic-ui-react';
 import Products from '@components/Products/Products';
 import { setProducts } from '../Redux/actions/actionProducts';
 
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
   const {data: {data}} = await axios.get('https://avo-nextjs.vercel.app/api/avo');
   return {
     props: {

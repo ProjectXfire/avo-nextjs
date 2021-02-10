@@ -6,20 +6,42 @@ import { Button, Input, Table } from 'semantic-ui-react';
 import styles from '@styles/ProductDetail.module.scss';
 import { addTocartOrUpdateQtty } from '../../Redux/actions/actionProducts';
 
-const ProductPage = () => {
+export const getStaticPaths = async () => {
+  const {data: {data}} = await axios.get('https://avo-nextjs.vercel.app/api/avo');
+
+  const paths = data.map((avo) => {
+    return {
+      params: {
+        id: avo.id
+      }
+    };
+  });
+
+  return {
+    paths,
+    fallback: false // Incremental static generation, significa que cualquier path que no este
+  }                 // en la lista de patchs, mandara un error 404.
+}
+
+export const getStaticProps = async ({ params }) => {
+  const {data} = await axios.get(`https://avo-nextjs.vercel.app/api/avo/${params.id}`);
+  return {
+    props: {
+      product: data
+    }
+  };
+};
+
+const ProductPage = ({ product }) => {
   const { query: {id} } = useRouter();
-  const products = useSelector(state => state.products);
   const cart = useSelector(state => state.cart);
   const [qtty, setQtty] = useState(1);
   const [loading, setLoading] = useState(false);
-  const [product, setProduct] = useState({});
   const dispatch = useDispatch();
 
   const handleQttyChange = (e) => {
     setQtty(e.target.value);
   }
-
-  const exist = Object.keys(product).length > 0;
 
   const handleQtty = (product) => {
     setLoading(true);
@@ -38,15 +60,12 @@ const ProductPage = () => {
     if (productCart) {
       setQtty(productCart.qtty)
     }
-    axios.get(`/api/avo/${id}`)
-      .then(response => setProduct(response.data))
-      .catch(error => error);
   }, []);
 
   return (
     <section>
       {
-        exist && (
+        product && (
           <>
             <div className={styles.ProductDetail}>
               <div>
