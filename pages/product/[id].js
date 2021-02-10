@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router'
 import { useSelector, useDispatch } from 'react-redux';
 import { Button, Input, Table } from 'semantic-ui-react';
@@ -7,6 +7,7 @@ import { addTocartOrUpdateQtty } from '../../Redux/actions/actionProducts';
 
 const ProductPage = () => {
   const { query: {id} } = useRouter();
+  const router = useRouter();
   const products = useSelector(state => state.products);
   const cart = useSelector(state => state.cart);
   const [qtty, setQtty] = useState(1);
@@ -14,6 +15,7 @@ const ProductPage = () => {
   const dispatch = useDispatch();
   const product = products.find(product => product.id === id );
   const productCart = cart.find(product => product.id === id );
+
 
   const handleQttyChange = (e) => {
     setQtty(e.target.value);
@@ -35,7 +37,7 @@ const ProductPage = () => {
     if (productCart) {
       setQtty(productCart.qtty)
     }
-  }, [productCart])
+  }, []);
 
   return (
     <section>
