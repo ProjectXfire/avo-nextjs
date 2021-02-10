@@ -7,19 +7,18 @@ import { addTocartOrUpdateQtty } from '../../Redux/actions/actionProducts';
 
 const ProductPage = () => {
   const { query: {id} } = useRouter();
-  const router = useRouter();
   const products = useSelector(state => state.products);
   const cart = useSelector(state => state.cart);
   const [qtty, setQtty] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [product, setProduct] = useState({});
   const dispatch = useDispatch();
-  const product = products.find(product => product.id === id );
-  const productCart = cart.find(product => product.id === id );
-
 
   const handleQttyChange = (e) => {
     setQtty(e.target.value);
   }
+
+  const exist = Object.keys(product).length > 0;
 
   const handleQtty = (product) => {
     setLoading(true);
@@ -34,15 +33,18 @@ const ProductPage = () => {
   };
 
   useEffect(() => {
+    const productCart = cart.find(product => product.id === id );
     if (productCart) {
       setQtty(productCart.qtty)
     }
+    const product = products.find(product => product.id === id);
+    setProduct(product);
   }, []);
 
   return (
     <section>
       {
-        product && (
+        exist && (
           <>
             <div className={styles.ProductDetail}>
               <div>
